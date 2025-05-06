@@ -17,7 +17,7 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->unsignedTinyInteger('deleted_by')->nullable();
-            $table->unsignedBigInteger( 'alarms_types_id')->nullable();
+            $table->unsignedBigInteger('alarms_types_id')->nullable();
             $table->foreign('alarms_types_id')->references('id')->on('alarms_types')->onDelete('set null');
         });
     }
