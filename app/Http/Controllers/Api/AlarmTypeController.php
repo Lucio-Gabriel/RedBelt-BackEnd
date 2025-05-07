@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AlarmTypeResource;
 use App\Models\AlarmType;
-use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -50,9 +49,9 @@ class AlarmTypeController extends Controller
     public function update(Request $request, AlarmType $alarmType)
     {
         $validator = Validator::make($request->all(), [
-           'name'        => 'required|max:255',
-           'description' => 'max:255',
-           'active'      => 'required',
+            'name'        => 'required|max:255',
+            'description' => 'max:255',
+            'active'      => 'required',
         ])->stopOnFirstFailure();
 
         if ($validator->fails()) {
@@ -62,9 +61,9 @@ class AlarmTypeController extends Controller
         $validated = $validator->validated();
 
         $alarmType->update([
-            'name' => $validated['name'],
+            'name'        => $validated['name'],
             'description' => $validated['description'],
-            'active' => $validated['active'],
+            'active'      => $validated['active'],
         ]);
 
         if ($validator->fails()) {
@@ -79,13 +78,14 @@ class AlarmTypeController extends Controller
 
     public function destroy(AlarmType $alarmType)
     {
-        //TODO preciso usar o SOFT-DELETE - E quando eu deletar um ALarmType preciso deletar o alarm
+        // TODO preciso usar o SOFT-DELETE - E quando eu deletar um ALarmType preciso deletar o alarm
 
         $deleted = $alarmType->delete();
 
         if ($deleted) {
-            return response()->json(["message" => "Tipo de alarme deletado com sucesso!"], 200);
+            return response()->json(['message' => 'Tipo de alarme deletado com sucesso!'], 200);
         }
-        return response()->json(["message" => "Tipo de alarme não foi deletado!"], 400);
+
+        return response()->json(['message' => 'Tipo de alarme não foi deletado!'], 400);
     }
 }
