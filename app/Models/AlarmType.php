@@ -12,6 +12,12 @@ class AlarmType extends Model
 
     protected $table = 'alarms_types';
 
+    protected $fillable = [
+        'name',
+        'description',
+        'active',
+    ];
+
     public function alarms(): HasMany
     {
         return $this->hasMany(Alarm::class, 'alarms_types_id');
