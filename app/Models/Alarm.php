@@ -10,7 +10,13 @@ class Alarm extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'alarms_types_id',
+        'criticality',
+        'status',
+        'active',
+        'date_occurred',
+    ];
 
     public function alarmType(): BelongsTo
     {
