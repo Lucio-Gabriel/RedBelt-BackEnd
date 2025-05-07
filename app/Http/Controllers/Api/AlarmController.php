@@ -46,13 +46,53 @@ class AlarmController extends Controller
         return new AlarmResource($alarm);
     }
 
-    public function update(Request $request, string $id)
+    public function update(Request $request, Alarm $alarm)
     {
-        //
+        // TODO Colocar o format date time para receber certo no meu edit
+
+        $validator = Validator::make($request->all(), [
+            'alarms_types_id' => 'required',
+            'criticality'     => 'required',
+            'status'          => 'required',
+            'active'          => 'required',
+            'date_occurred'   => 'required',
+        ])->stopOnFirstFailure();
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        $validated = $validator->validated();
+
+        $alarm->update([
+            'alarms_types_id' => $validated['alarms_types_id'],
+            'criticality'     => $validated['criticality'],
+            'status'          => $validated['status'],
+            'active'          => $validated['active'],
+            'date_occurred'   => $validated['date_occurred'],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        return (new AlarmResource($alarm))
+            ->additional(['message' => 'Alarme atualizado com sucesso!'])
+            ->response()
+            ->setStatusCode(201);
     }
 
-    public function destroy(string $id)
+    public function destroy(Alarm $alarm)
     {
-        //
+        // TODO preciso usar o SOFT-DELETE - E quando eu deletar um ALarmType preciso deletar o alarm
+        // Aqui ele apaga o alarme pois ele tem o relacionamento na migrations, tenho que fazer o mesmo no AlarmType
+
+        $delete = $alarm->delete();
+
+        if ($delete) {
+            return response()->json(['message' => 'Alarme deletado com sucesso!'], 200);
+        }
+
+        return response()->json(['message' => 'Tipo de alarme não foi deletado!'], 400);
     }
 }

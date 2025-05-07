@@ -46,13 +46,46 @@ class AlarmTypeController extends Controller
         return new AlarmTypeResource($alarmType);
     }
 
-    public function update(Request $request, string $id)
+    public function update(Request $request, AlarmType $alarmType)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name'        => 'required|max:255',
+            'description' => 'max:255',
+            'active'      => 'required',
+        ])->stopOnFirstFailure();
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        $validated = $validator->validated();
+
+        $alarmType->update([
+            'name'        => $validated['name'],
+            'description' => $validated['description'],
+            'active'      => $validated['active'],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        return (new AlarmTypeResource($alarmType))
+            ->additional(['message' => 'Tipo de alarme atualizado com sucesso!'])
+            ->response()
+            ->setStatusCode(200);
     }
 
-    public function destroy(string $id)
+    public function destroy(AlarmType $alarmType)
     {
-        //
+        // TODO preciso usar o SOFT-DELETE - E quando eu deletar um ALarmType preciso deletar o alarm
+
+        $deleted = $alarmType->delete();
+
+        if ($deleted) {
+            return response()->json(['message' => 'Tipo de alarme deletado com sucesso!'], 200);
+        }
+
+        return response()->json(['message' => 'Tipo de alarme não foi deletado!'], 400);
     }
 }
