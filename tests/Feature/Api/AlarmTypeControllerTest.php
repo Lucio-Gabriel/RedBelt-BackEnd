@@ -28,8 +28,6 @@ class AlarmTypeControllerTest extends TestCase
     /** @test  */
     public function it_validates_required_fields_when_creating()
     {
-        $this->markTestSkipped('not implemented');
-
         $response = $this->postJson('/api/alarms-types', []);
 
         $response->assertStatus(422)
