@@ -25,10 +25,13 @@ class AlarmController extends Controller
             'status'          => 'required',
             'active'          => 'required',
             'date_occurred'   => 'required',
-        ])->stopOnFirstFailure();
+        ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+            return response()->json([
+                'message' => 'The given data was invalid.',
+                'errors'  => $validator->errors(),
+            ], 422);
         }
 
         $created = Alarm::create($validator->validated());
@@ -73,7 +76,10 @@ class AlarmController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+            return response()->json([
+                'message' => 'The given data was invalid.',
+                'errors'  => $validator->errors(),
+            ], 422);
         }
 
         return (new AlarmResource($alarm))

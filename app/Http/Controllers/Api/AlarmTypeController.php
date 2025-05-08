@@ -23,10 +23,13 @@ class AlarmTypeController extends Controller
             'name'        => 'required|max:255',
             'description' => 'max:255',
             'active'      => 'required',
-        ])->stopOnFirstFailure();
+        ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+            return response()->json([
+                'message' => 'The given data was invalid.',
+                'errors'  => $validator->errors(),
+            ], 422);
         }
 
         $created = AlarmType::create($validator->validated());
@@ -67,7 +70,10 @@ class AlarmTypeController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+            return response()->json([
+                'message' => 'The given data was invalid.',
+                'errors'  => $validator->errors(),
+            ], 422);
         }
 
         return (new AlarmTypeResource($alarmType))
