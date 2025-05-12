@@ -17,8 +17,6 @@ class AlarmController extends Controller
 
     public function store(Request $request)
     {
-        // TODO verificar por que as validações ainda não estão depedente - Melhorar essas validações
-
         $validator = Validator::make($request->all(), [
             'alarms_types_id' => 'required',
             'criticality'     => 'required',
@@ -51,8 +49,6 @@ class AlarmController extends Controller
 
     public function update(Request $request, Alarm $alarm)
     {
-        // TODO Colocar o format date time para receber certo no meu edit
-
         $validator = Validator::make($request->all(), [
             'alarms_types_id' => 'required',
             'criticality'     => 'required',
@@ -90,9 +86,6 @@ class AlarmController extends Controller
 
     public function destroy(Alarm $alarm)
     {
-        // TODO preciso usar o SOFT-DELETE - E quando eu deletar um ALarmType preciso deletar o alarm
-        // Aqui ele apaga o alarme pois ele tem o relacionamento na migrations, tenho que fazer o mesmo no AlarmType
-
         $delete = $alarm->delete();
 
         if ($delete) {
