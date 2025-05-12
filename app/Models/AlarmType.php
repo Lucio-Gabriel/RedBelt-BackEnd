@@ -15,7 +15,6 @@ class AlarmType extends Model
     protected $fillable = [
         'name',
         'description',
-        'active',
     ];
 
     public function alarms(): HasMany

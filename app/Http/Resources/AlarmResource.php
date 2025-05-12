@@ -18,7 +18,7 @@ class AlarmResource extends JsonResource
             4 => 'Crítico',
         ];
 
-        return $mapString[$criticality] ?? 'Desconhecido';
+        return $mapString[$criticality] ?? 'Info';
     }
 
     protected function mapStatusToString($status): string
@@ -29,7 +29,7 @@ class AlarmResource extends JsonResource
             0 => 'Fechado',
         ];
 
-        return $mapString[$status] ?? 'Desconhecido';
+        return $mapString[$status] ?? 'Aberto';
     }
 
     protected function mapActiveToString($active): string
@@ -39,7 +39,7 @@ class AlarmResource extends JsonResource
             0 => 'Desativado',
         ];
 
-        return $mapString[$active] ?? 'Desconhecido';
+        return $mapString[$active] ?? 'Ativo';
     }
 
     public function toArray(Request $request): array
@@ -48,13 +48,13 @@ class AlarmResource extends JsonResource
             'Criticidade'        => $this->mapCriticalityToString($this->criticality),
             'Status'             => $this->mapStatusToString($this->status),
             'Ativo'              => $this->mapActiveToString($this->active),
-            'Data da ocorrência' => Carbon::parse($this->date_occurred)->format('d/m/Y H:i:s'),
-            'Data da criação'    => Carbon::parse($this->created_at)->format('d/m/Y H:i:s'),
-            'Data da deleção'    => $this->deleted_at,
-            'Tipo de Alarme'     => $this->alarmType ? [
+            'data_da_ocorrencia' => Carbon::parse($this->date_occurred)->format('d/m/Y'),
+            'data_da_criacao'    => Carbon::parse($this->created_at)->format('d/m/Y H:i:s'),
+            'data_da_delecao'    => $this->deleted_at,
+            'Tipo_de_Alarme'     => $this->alarmType ? [
                 'ID'        => $this->alarmType->id,
                 'Nome'      => $this->alarmType->name,
-                'Descrição' => $this->alarmType->description,
+                'Descricao' => $this->alarmType->description,
             ] : null,
         ];
     }
