@@ -48,7 +48,6 @@ class AlarmTypeResource extends JsonResource
             'ID'        => $this->id,
             'Nome'      => $this->name,
             'Descrição' => $this->description,
-            'Ativo'     => $this->active ? 'Sim' : 'Não',
             'Alarmes'   => $this->alarms->map(function ($alarm) {
                 return [
                     'ID'          => $alarm->id,

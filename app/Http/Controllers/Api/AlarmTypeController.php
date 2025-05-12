@@ -17,12 +17,9 @@ class AlarmTypeController extends Controller
 
     public function store(Request $request)
     {
-        // TODO verificar por que as validações ainda não estão depedente - Melhorar essas validações
-
         $validator = Validator::make($request->all(), [
             'name'        => 'required|max:255',
             'description' => 'max:255',
-            'active'      => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -54,7 +51,6 @@ class AlarmTypeController extends Controller
         $validator = Validator::make($request->all(), [
             'name'        => 'required|max:255',
             'description' => 'max:255',
-            'active'      => 'required',
         ])->stopOnFirstFailure();
 
         if ($validator->fails()) {
@@ -66,7 +62,6 @@ class AlarmTypeController extends Controller
         $alarmType->update([
             'name'        => $validated['name'],
             'description' => $validated['description'],
-            'active'      => $validated['active'],
         ]);
 
         if ($validator->fails()) {
@@ -84,8 +79,6 @@ class AlarmTypeController extends Controller
 
     public function destroy(AlarmType $alarmType)
     {
-        // TODO preciso usar o SOFT-DELETE - E quando eu deletar um ALarmType preciso deletar o alarm
-
         $deleted = $alarmType->delete();
 
         if ($deleted) {
