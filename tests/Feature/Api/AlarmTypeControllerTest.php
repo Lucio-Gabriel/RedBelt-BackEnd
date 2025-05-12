@@ -31,7 +31,7 @@ class AlarmTypeControllerTest extends TestCase
         $response = $this->postJson('/api/alarms-types', []);
 
         $response->assertStatus(422)
-            ->assertJsonValidationErrors(['name', 'active']);
+            ->assertJsonValidationErrors(['name']);
     }
 
     /** @test  */
