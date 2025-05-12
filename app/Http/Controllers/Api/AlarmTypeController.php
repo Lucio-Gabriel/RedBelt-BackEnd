@@ -79,6 +79,8 @@ class AlarmTypeController extends Controller
 
     public function destroy(AlarmType $alarmType)
     {
+        $alarmType->alarms()->delete();
+
         $deleted = $alarmType->delete();
 
         if ($deleted) {
