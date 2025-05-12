@@ -49,8 +49,6 @@ class AlarmResource extends JsonResource
             'Status'             => $this->mapStatusToString($this->status),
             'Ativo'              => $this->mapActiveToString($this->active),
             'data_da_ocorrencia' => Carbon::parse($this->date_occurred)->format('d/m/Y'),
-            'data_da_criacao'    => Carbon::parse($this->created_at)->format('d/m/Y H:i:s'),
-            'data_da_delecao'    => $this->deleted_at,
             'Tipo_de_Alarme'     => $this->alarmType ? [
                 'ID'        => $this->alarmType->id,
                 'Nome'      => $this->alarmType->name,
