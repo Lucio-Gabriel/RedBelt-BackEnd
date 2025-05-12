@@ -15,17 +15,17 @@ class AlarmControllerTest extends TestCase
     public function it_creates_a_new_alarm()
     {
         $alarmType = AlarmType::create([
-            'name' => 'Alarm 1',
+            'name'        => 'Alarm 1',
             'description' => 'Alarm 1',
-            'active' => 1,
+            'active'      => 1,
         ]);
 
         $data = [
             'alarms_types_id' => 1,
-            'criticality' => 1,
-            'status' => 1,
-            'active' => 1,
-            'date_occurred' => '2019-01-01 00:00:00',
+            'criticality'     => 1,
+            'status'          => 1,
+            'active'          => 1,
+            'date_occurred'   => '2019-01-01 00:00:00',
         ];
 
         $response = $this->postJson('/api/alarms', $data);
@@ -58,10 +58,10 @@ class AlarmControllerTest extends TestCase
 
         $updatedAlarm = [
             'alarms_types_id' => $alarmType->id,
-            'criticality' => 2,
-            'status' => 2,
-            'active' => 2,
-            'date_occurred' => '2020-01-01 00:00:00',
+            'criticality'     => 2,
+            'status'          => 2,
+            'active'          => 2,
+            'date_occurred'   => '2020-01-01 00:00:00',
         ];
 
         $response = $this->putJson("/api/alarms/{$alarm->id}", $updatedAlarm);
