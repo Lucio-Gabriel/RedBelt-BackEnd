@@ -15,8 +15,6 @@ return new class extends Migration
             $table->boolean('active')->default(1);
             $table->timestamp('date_occurred')->nullable();
             $table->timestamps();
-            $table->softDeletes();
-            $table->unsignedTinyInteger('deleted_by')->nullable();
             $table->unsignedBigInteger('alarms_types_id')->nullable();
             $table->foreign('alarms_types_id')->references('id')->on('alarms_types')->onDelete('set null');
         });
